@@ -1,0 +1,26 @@
+# Creating Directory
+---
+- hosts: localhost
+  become: yes
+  tasks:
+      - name: Create /lab/test directory if does not already exists.
+        become: yes
+        file:
+          path: /lab/test
+          state: directory
+          mode: 0755
+
+ 
+
+      - name: Copy file from source to newly created direcory /lab/test
+        become: yes
+        copy:
+          src: /home/ansible/fundamentals/testcopyfile.txt
+          dest: /lab/test/testcopyfile.txt
+
+ 
+
+      - name: Delete copied file from the source
+        file:
+          path: /home/ansible/fundamentals/testcopyfile.txt
+          state: absent
